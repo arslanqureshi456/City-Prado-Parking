@@ -1,0 +1,205 @@
+fileFormatVersion: 2
+guid: 23a43ecf987410f418ebf6f97573af91
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Door_1_12
+    100004: Door_2_10
+    100006: Door_3_11
+    100008: Door_4_8
+    100010: Lights
+    100012: Lights001
+    100014: mercedes_bus_0_9
+    100016: BUS_NO_3
+    100018: Object001
+    400000: //RootNode
+    400002: Door_1_12
+    400004: Door_2_10
+    400006: Door_3_11
+    400008: Door_4_8
+    400010: Lights
+    400012: Lights001
+    400014: mercedes_bus_0_9
+    400016: BUS_NO_3
+    400018: Object001
+    2100000: BUS_NO_3
+    2100002: BUS_NO_3_1
+    2100004: BUS_NO_3_3
+    2100006: BUS_NO_3_2
+    2100008: 'Material #16'
+    2100010: 'Material #17'
+    2100012: 'Material #18'
+    2100014: Neon_Text
+    2100016: 'Material #19'
+    2300000: Door_1_12
+    2300002: Door_2_10
+    2300004: Door_3_11
+    2300006: Door_4_8
+    2300008: Lights
+    2300010: Lights001
+    2300012: mercedes_bus_0_9
+    2300014: BUS_NO_3
+    2300016: Object001
+    2300018: //RootNode
+    3300000: Door_1_12
+    3300002: Door_2_10
+    3300004: Door_3_11
+    3300006: Door_4_8
+    3300008: Lights
+    3300010: Lights001
+    3300012: mercedes_bus_0_9
+    3300014: BUS_NO_3
+    3300016: Object001
+    3300018: //RootNode
+    4300000: Door_4_8
+    4300002: Door_2_10
+    4300004: Door_3_11
+    4300006: Door_1_12
+    4300008: Lights
+    4300010: mercedes_bus_0_9
+    4300012: Lights001
+    4300014: BUS_NO_3
+    4300016: Object001
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BUS_NO_3
+    second: {fileID: 2100000, guid: 45864bb886edb4d47b3865ea66a24e38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black Parts
+    second: {fileID: 2100000, guid: 45864bb886edb4d47b3865ea66a24e38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 45864bb886edb4d47b3865ea66a24e38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body 1
+    second: {fileID: 2100000, guid: 45864bb886edb4d47b3865ea66a24e38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Curtains
+    second: {fileID: 2100000, guid: effee87a84ce20842986d8b8a0959887, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LED
+    second: {fileID: 2100000, guid: 2928597b9a7f587409fdd8ad29a52458, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lights
+    second: {fileID: 2100000, guid: 45864bb886edb4d47b3865ea66a24e38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #20'
+    second: {fileID: 2100000, guid: f639374a92e400044a488e3968896f10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mirror
+    second: {fileID: 2100000, guid: 623250e5e493b12499892983bae2b722, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Number Plate
+    second: {fileID: 2100000, guid: 11555a1da5ecc3b4288d61727fa53681, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Off Road Sticker
+    second: {fileID: 2100000, guid: c6c4704117f3d1742a056ab57ad6aa56, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1.1
+    meshCompression: 2
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

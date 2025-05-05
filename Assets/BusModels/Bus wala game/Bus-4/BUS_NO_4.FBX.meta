@@ -1,0 +1,151 @@
+fileFormatVersion: 2
+guid: baf5ae92b4605044791f5cd07e520fe8
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: body_0
+    100002: //RootNode
+    100004: Dashboard_1
+    100006: front_door_0
+    100008: passenger_door
+    100010: seat__65__28
+    100012: steering_base_3
+    100014: steering_wheel_4
+    100016: BUS_NO_4
+    400000: body_0
+    400002: //RootNode
+    400004: Dashboard_1
+    400006: front_door_0
+    400008: passenger_door
+    400010: seat__65__28
+    400012: steering_base_3
+    400014: steering_wheel_4
+    400016: BUS_NO_4
+    2100000: Bus_4_Body
+    2100002: Bus_4_Mirror
+    2100004: Bus_4_Black_Parts
+    2100006: Decal-Body
+    2100008: 'Material #0'
+    2100010: Bus_4_Lights
+    2100012: bus-texture
+    2100014: 'Material #2'
+    2100016: Body
+    2100018: Windows
+    2100020: Black Parts
+    2100022: Number Plate
+    2100024: Body 1
+    2100026: Mirrors
+    2100028: Lights
+    2100030: Curtains
+    2100032: Windshield
+    2300000: body_0
+    2300002: Dashboard_1
+    2300004: front_door_0
+    2300006: passenger_door
+    2300008: seat__65__28
+    2300010: steering_base_3
+    2300012: steering_wheel_4
+    2300014: BUS_NO_4
+    3300000: body_0
+    3300002: Dashboard_1
+    3300004: front_door_0
+    3300006: passenger_door
+    3300008: seat__65__28
+    3300010: steering_base_3
+    3300012: steering_wheel_4
+    3300014: BUS_NO_4
+    4300000: Dashboard_1
+    4300002: passenger_door
+    4300004: front_door_0
+    4300006: seat__65__28
+    4300008: steering_wheel_4
+    4300010: body_0
+    4300012: steering_base_3
+    4300014: BUS_NO_4
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 2
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
