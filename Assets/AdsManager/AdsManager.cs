@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds;
 using GoogleMobileAds.Api;
+using GoogleMobileAds.Common;
 using System;
 using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -43,7 +46,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public bool isRewardedAd, isRewardedInterstitial;
     string rewardedAdName;
 
-    BannerView bannerViewtopsmallbanner, bannerViewbottomsmallbanner, bannerViewtopsmartbanner, bannerViewbottomsmartbanner, bannerViewtoprightbanner, bannerViewtopleftbanner, bannerViewbottomleftbanner, bannerViewbottomrightbanner, bannerViewtoprightcubebanner, bannerViewtopleftcubebanner, bannerViewbottomleftcubebanner, bannerViewbottomrightcubebanner, bannerViewtoplargeportraitbanner, bannerViewbottomlargeportraitbanner, bannerViewtoplargelandscapebanner, bannerViewbottomlargelandscapebanner, bannerviewtopadaptive, bannerviewbottomadaptive;
+    BannerView bannerViewtopsmallbanner, bannerViewbottomsmallbanner, bannerViewtoprightbanner, bannerViewtopleftbanner, bannerViewbottomleftbanner, bannerViewbottomrightbanner, bannerViewtoprightcubebanner, bannerViewtopleftcubebanner, bannerViewbottomleftcubebanner, bannerViewbottomrightcubebanner, bannerViewtoplargeportraitbanner, bannerViewbottomlargeportraitbanner, bannerViewtoplargelandscapebanner, bannerViewbottomlargelandscapebanner, bannerviewtopadaptive, bannerviewbottomadaptive;
     [Space(20)]
     [Header("Banners")]
     public string bannerId;
@@ -51,10 +54,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public string largeBannerId;
     public string adaptiveBannerId;
 
-    public bool isTopBanner, IsBottomBanner, isTopSmartBanner, isBottomSmartBanner, isTopRightBanner, isTopLeftBanner, isBottomRightBanner, isBottomLeftBanner, isTopRightCubeBanner, isTopLeftCubeBanner, isBottomRightCubeBanner, isBottomLeftCubeBanner, isLargeLandscapeTopBanner, isLargeLandscapeBottomBanner, isLargePortraitTopBanner, isLargePortraitBottomBanner, isTopAdaptiveBanner, isBottomAdaptiveBanner;
+    public bool isTopBanner, IsBottomBanner, isTopRightBanner, isTopLeftBanner, isBottomRightBanner, isBottomLeftBanner, isTopRightCubeBanner, isTopLeftCubeBanner, isBottomRightCubeBanner, isBottomLeftCubeBanner, isLargeLandscapeTopBanner, isLargeLandscapeBottomBanner, isLargePortraitTopBanner, isLargePortraitBottomBanner, isTopAdaptiveBanner, isBottomAdaptiveBanner;
 
     [Space(40)]
     [Header("Unity Ads Plugin")]
+    public bool useUnityAds;
     public string unityGameID;
     private string RewardedVideoID = "Rewarded_Android", UnityinterstitialID = "Interstitial_Android";
     [Space(10)]
@@ -78,7 +82,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     void OnEnable()
     {
         DontDestroyOnLoad(this.gameObject);
-        if (PlayerPrefs.GetInt("RemoveAds") == 1)
+        if (PlayerPrefs.GetInt("ADSUNLOCK") == 1)
         {
             isAdsPurchased = true;
         }
@@ -112,7 +116,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         }
 
         InitializeAdmobAds();
-         InitializeUnityAds();
+        if (useUnityAds)
+        {
+            InitializeUnityAds();
+        }
 #if unity_release
         ANRHandlerThreadStart();
 #endif
@@ -136,7 +143,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             if (isAdsPurchased)
                 return;
 
-            if (isTopBanner || IsBottomBanner || isTopSmartBanner || isBottomSmartBanner || isTopRightBanner || isTopLeftBanner || isBottomRightBanner | isBottomLeftBanner)
+            if (isTopBanner || IsBottomBanner || isTopRightBanner || isTopLeftBanner || isBottomRightBanner | isBottomLeftBanner)
             {
                 RequestBanner();
             }
@@ -168,23 +175,12 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             {
                 RequestStaticInterstitial();
             }
-
-
         });
     }
 
 
     #region Banners
     #region RequestBanners
-    // Returns an ad request with custom ad targeting.
-    private AdRequest createAdRequest()
-    {
-        return new AdRequest.Builder()
-        .AddKeyword("game")
-        .AddExtra("color_bg", "9B30FF")
-        .AddExtra("npa", "1")
-        .Build();
-    }
     void RequestBanner()
     {
         if (isAdsPurchased)
@@ -196,42 +192,46 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         bannerViewtopsmallbanner = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
         // Load a banner ad.
         if (isTopBanner)
-            bannerViewtopsmallbanner.LoadAd(createAdRequest());
+        {
+            bannerViewtopsmallbanner.LoadAd(new AdRequest());
+            bannerViewtopsmallbanner.Hide();
+        }
 
         bannerViewbottomsmallbanner = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
         // Load a banner ad.
-        if (IsBottomBanner)
-            bannerViewbottomsmallbanner.LoadAd(createAdRequest());
-
-        bannerViewtopsmartbanner = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Top);
-        // Load a banner ad.
-        if (isTopSmartBanner)
-            bannerViewtopsmartbanner.LoadAd(createAdRequest());
-
-        bannerViewbottomsmartbanner = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
-        // Load a banner ad.
-        if (isBottomSmartBanner)
-            bannerViewbottomsmartbanner.LoadAd(createAdRequest());
+        if (IsBottomBanner) {
+            bannerViewbottomsmallbanner.LoadAd(new AdRequest());
+            bannerViewbottomsmallbanner.Hide();
+        }
 
         bannerViewtoprightbanner = new BannerView(adUnitId, AdSize.Banner, AdPosition.TopRight);
         // Load a banner ad.
-        if (isTopRightBanner)
-            bannerViewtoprightbanner.LoadAd(createAdRequest());
+        if (isTopRightBanner) {
+            bannerViewtoprightbanner.LoadAd(new AdRequest());
+            bannerViewtoprightbanner.Hide();
+        }
 
         bannerViewtopleftbanner = new BannerView(adUnitId, AdSize.Banner, AdPosition.TopLeft);
         // Load a banner ad.
-        if (isTopLeftBanner)
-            bannerViewtopleftbanner.LoadAd(createAdRequest());
+        if (isTopLeftBanner) {
+            bannerViewtopleftbanner.LoadAd(new AdRequest());
+            bannerViewtopleftbanner.Hide();
+        }
 
         bannerViewbottomleftbanner = new BannerView(adUnitId, AdSize.Banner, AdPosition.BottomLeft);
         // Load a banner ad.
-        if (isBottomRightBanner)
-            bannerViewbottomleftbanner.LoadAd(createAdRequest());
+        if (isBottomRightBanner) {
+            bannerViewbottomleftbanner.LoadAd(new AdRequest());
+            bannerViewbottomleftbanner.Hide();
+        }
 
         bannerViewbottomrightbanner = new BannerView(adUnitId, AdSize.Banner, AdPosition.BottomRight);
         // Load a banner ad.
         if (isBottomLeftBanner)
-            bannerViewbottomrightbanner.LoadAd(createAdRequest());
+        {
+            bannerViewbottomrightbanner.LoadAd(new AdRequest());
+            bannerViewbottomrightbanner.Hide();
+        }
     }
 
     void RequestMedBanner()
@@ -244,23 +244,32 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         AdSize adSizecube = new AdSize(300, 250);
         bannerViewtopleftcubebanner = new BannerView(adUnitId, adSizecube, AdPosition.TopLeft);
         // Load a banner ad.
-        if (isTopLeftCubeBanner)
-            bannerViewtopleftcubebanner.LoadAd(createAdRequest());
+        if (isTopLeftCubeBanner) {
+            bannerViewtopleftcubebanner.LoadAd(new AdRequest());
+            bannerViewtopleftcubebanner.Hide();
+        }
 
         bannerViewtoprightcubebanner = new BannerView(adUnitId, adSizecube, AdPosition.TopRight);
         // Load a banner ad.
-        if (isTopRightCubeBanner)
-            bannerViewtoprightcubebanner.LoadAd(createAdRequest());
+        if (isTopRightCubeBanner) { 
+            bannerViewtoprightcubebanner.LoadAd(new AdRequest());
+            bannerViewtoprightcubebanner.Hide();
+            }
 
         bannerViewbottomleftcubebanner = new BannerView(adUnitId, adSizecube, AdPosition.BottomLeft);
         // Load a banner ad.
-        if (isBottomLeftCubeBanner)
-            bannerViewbottomleftcubebanner.LoadAd(createAdRequest());
+        if (isBottomLeftCubeBanner) {
+            bannerViewbottomleftcubebanner.LoadAd(new AdRequest());
+            bannerViewbottomleftcubebanner.Hide();
+        }
 
         bannerViewbottomrightcubebanner = new BannerView(adUnitId, adSizecube, AdPosition.BottomRight);
         // Load a banner ad.
         if (isBottomRightCubeBanner)
-            bannerViewbottomrightcubebanner.LoadAd(createAdRequest());
+        {
+            bannerViewbottomrightcubebanner.LoadAd(new AdRequest());
+            bannerViewbottomrightcubebanner.Hide();
+        }
     }
 
     void RequestLargeBanner()
@@ -272,24 +281,33 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         AdSize adSizelargelandscape = new AdSize(500, 200);
         bannerViewtoplargelandscapebanner = new BannerView(adUnitId, adSizelargelandscape, AdPosition.Top);
         // Load a banner ad.
-        if (isLargeLandscapeTopBanner)
-            bannerViewtoplargelandscapebanner.LoadAd(createAdRequest());
+        if (isLargeLandscapeTopBanner) {
+            bannerViewtoplargelandscapebanner.LoadAd(new AdRequest());
+            bannerViewtoplargelandscapebanner.Hide();
+        }
 
         bannerViewbottomlargelandscapebanner = new BannerView(adUnitId, adSizelargelandscape, AdPosition.Bottom);
         // Load a banner ad.
-        if (isLargeLandscapeBottomBanner)
-            bannerViewbottomlargelandscapebanner.LoadAd(createAdRequest());
+        if (isLargeLandscapeBottomBanner) {
+            bannerViewbottomlargelandscapebanner.LoadAd(new AdRequest());
+            bannerViewbottomlargelandscapebanner.Hide();
+        }
 
         AdSize adSizelargeportrait = new AdSize(320, 100);
         bannerViewtoplargeportraitbanner = new BannerView(adUnitId, adSizelargeportrait, AdPosition.Top);
         // Load a banner ad.
-        if (isLargePortraitTopBanner)
-            bannerViewtoplargeportraitbanner.LoadAd(createAdRequest());
+        if (isLargePortraitTopBanner) {
+            bannerViewtoplargeportraitbanner.LoadAd(new AdRequest());
+            bannerViewtoplargeportraitbanner.Hide();
+        }
 
         bannerViewbottomlargeportraitbanner = new BannerView(adUnitId, adSizelargeportrait, AdPosition.Bottom);
         // Load a banner ad.
         if (isLargePortraitBottomBanner)
-            bannerViewbottomlargeportraitbanner.LoadAd(createAdRequest());
+        {
+            bannerViewbottomlargeportraitbanner.LoadAd(new AdRequest());
+            bannerViewbottomlargeportraitbanner.Hide();
+        }
     }
 
     void RequestAdaptiveBanner()
@@ -297,16 +315,23 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         if (isAdsPurchased)
             return;
 
+        int deviceWidth = MobileAds.Utils.GetDeviceSafeWidth();
         string adUnitId = adaptiveBannerId;
-        bannerviewtopadaptive = new BannerView(adaptiveBannerId, AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth), AdPosition.Top);
+        bannerviewtopadaptive = new BannerView(adaptiveBannerId, AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(deviceWidth), AdPosition.Top);
         // Load a banner ad.
         if (isTopAdaptiveBanner)
-            bannerviewtopadaptive.LoadAd(createAdRequest());
+        {
+            bannerviewtopadaptive.LoadAd(new AdRequest());
+            bannerviewtopadaptive.Hide();
+        }
 
-        bannerviewbottomadaptive = new BannerView(adaptiveBannerId, AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth), AdPosition.Bottom);
+        bannerviewbottomadaptive = new BannerView(adaptiveBannerId, AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(deviceWidth), AdPosition.Bottom);
         // Load a banner ad.
         if (isBottomAdaptiveBanner)
-            bannerviewbottomadaptive.LoadAd(createAdRequest());
+        {
+            bannerviewbottomadaptive.LoadAd(new AdRequest());
+            bannerviewbottomadaptive.Hide();
+        }
 
 
     }
@@ -314,6 +339,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     #region ShowBanners
     public void ShowTopSmallBanner()
     {
+        RemoveTopSmallBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -321,10 +347,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewtopsmallbanner.Show();
     }
 
-
-
     public void ShowBottomSmallBanner()
     {
+        RemoveBottomSmallBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -332,31 +357,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewbottomsmallbanner.Show();
     }
 
-
-
-    public void ShowTopSmartBanner()
-    {
-        if (isAdsPurchased)
-            return;
-        if (IsLowMemory(NoAnyBannerBelow)) return;
-        if (bannerViewtopsmartbanner != null)
-            bannerViewtopsmartbanner.Show();
-    }
-
-
-    public void ShowBottomSmartBanner()
-    {
-        if (isAdsPurchased)
-            return;
-        if (IsLowMemory(NoAnyBannerBelow)) return;
-        if (bannerViewbottomsmartbanner != null)
-            bannerViewbottomsmartbanner.Show();
-    }
-
-
-
     public void ShowTopRightBanner()
     {
+        RemoveTopRightBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -364,9 +367,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewtoprightbanner.Show();
     }
 
-
     public void ShowBottomRightBanner()
     {
+        RemoveBottomRightBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -374,9 +377,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewbottomrightbanner.Show();
     }
 
-
     public void ShowTopLeftBanner()
     {
+        RemoveTopLeftBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -384,10 +387,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewtopleftbanner.Show();
     }
 
-
-
     public void ShowBottomLeftBanner()
     {
+        RemoveBottomLeftBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -395,10 +397,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewbottomleftbanner.Show();
     }
 
-
-
     public void ShowTopLeftCubeBanner()
     {
+        RemoveTopLeftCubeBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -406,10 +407,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewtopleftcubebanner.Show();
     }
 
-
-
     public void ShowBottomLeftCubeBanner()
     {
+        RemoveBottomLeftCubeBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -417,10 +417,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewbottomleftcubebanner.Show();
     }
 
-
-
     public void ShowTopRightCubeBanner()
     {
+        RemoveTopRightCubeBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -428,10 +427,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewtoprightcubebanner.Show();
     }
 
-
-
     public void ShowBottomRightCubeBanner()
     {
+        RemoveBottomRightCubeBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -439,10 +437,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewbottomrightcubebanner.Show();
     }
 
-
-
     public void ShowTopLargePortraitBanner()
     {
+        RemoveTopLargePortraitBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -450,10 +447,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewtoplargeportraitbanner.Show();
     }
 
-
-
     public void ShowBottomLargePortraitBanner()
     {
+        RemoveBottomLargePortraitBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -461,10 +457,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewbottomlargeportraitbanner.Show();
     }
 
-
-
     public void ShowTopLargeLandscapeBanner()
     {
+        RemoveTopLargeLandscapeBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -472,10 +467,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerViewtoplargelandscapebanner.Show();
     }
 
-
-
     public void ShowBottomLargeLandscapeBanner()
     {
+        RemoveBottomLargeLandscapeBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -485,6 +479,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void ShowTopAdaptiveBanner()
     {
+        RemoveTopAdaptiveBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -492,10 +487,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerviewtopadaptive.Show();
     }
 
-
-
     public void ShowBottomAdaptiveBanner()
     {
+        RemoveBottomAdaptiveBanner();
         if (isAdsPurchased)
             return;
         if (IsLowMemory(NoAnyBannerBelow)) return;
@@ -515,17 +509,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         if (bannerViewbottomsmallbanner != null)
             bannerViewbottomsmallbanner.Hide();
-    }
-
-    public void RemoveTopSmartBanner()
-    {
-        if (bannerViewtopsmartbanner != null)
-            bannerViewtopsmartbanner.Hide();
-    }
-    public void RemoveBottomSmartBanner()
-    {
-        if (bannerViewbottomsmartbanner != null)
-            bannerViewbottomsmartbanner.Hide();
     }
 
     public void RemoveTopRightBanner()
@@ -605,18 +588,12 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             bannerviewbottomadaptive.Hide();
     }
 
-
-
     public void RemoveAllBanners()
     {
         if (bannerViewtopsmallbanner != null)
             bannerViewtopsmallbanner.Hide();
         if (bannerViewbottomsmallbanner != null)
             bannerViewbottomsmallbanner.Hide();
-        if (bannerViewtopsmartbanner != null)
-            bannerViewtopsmartbanner.Hide();
-        if (bannerViewbottomsmartbanner != null)
-            bannerViewbottomsmartbanner.Hide();
         if (bannerViewtoprightbanner != null)
             bannerViewtoprightbanner.Hide();
         if (bannerViewbottomrightbanner != null)
@@ -655,7 +632,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         if (isAdsPurchased)
             return;
         // send the request to load the ad.
-        AppOpenAd.Load(appOpenId, ScreenOrientation.AutoRotation, createAdRequest(),
+        AppOpenAd.Load(appOpenId,  new AdRequest(),
             (AppOpenAd ad, LoadAdError error) =>
             {
                 // if error is not null, the load request failed.
@@ -720,6 +697,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         };
     }
 
+    public bool isAppopenReady()
+    {
+        if (appOpenAd != null && appOpenAd.CanShowAd())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void ShowAppOpen()
     {
         if (isAdsPurchased)
@@ -741,7 +729,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void RequestInterstitial()
     {
         // send the request to load the ad.
-        InterstitialAd.Load(interstitialId, createAdRequest(),
+        InterstitialAd.Load(interstitialId, new AdRequest(),
             (InterstitialAd ad, LoadAdError error) =>
             {
                 // if error is not null, the load request failed.
@@ -803,10 +791,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         };
     }
 
-    //public bool isAdmobInterstitialReady()
-    //{
-    //   return interstitialAd.CanShowAd();
-    //}
+    public bool isAdmobInterstitialReady()
+    {
+        if (interstitialAd != null && interstitialAd.CanShowAd())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void ShowInterstitial()
     {
         if (isAdsPurchased)
@@ -833,7 +828,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         if (IsLowMemory(NoAnyInterstitialBelow)) return;
 
         // send the request to load the ad.
-        InterstitialAd.Load(staticInterstitialId, createAdRequest(),
+        InterstitialAd.Load(staticInterstitialId, new AdRequest(),
             (InterstitialAd ad, LoadAdError error) =>
             {
                 // if error is not null, the load request failed.
@@ -895,10 +890,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         };
     }
 
-    //public bool isAdmobStaticInterstitialReady()
-    //{
-    //    return staticInterstitialAd.CanShowAd();
-    //}
+    public bool isAdmobStaticInterstitialReady()
+    {
+        if (staticInterstitialAd != null && staticInterstitialAd.CanShowAd())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void ShowStaticInterstitial()
     {
         if (isAdsPurchased)
@@ -918,7 +920,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void RequestRewardedAd()
     {
         // send the request to load the ad.
-        RewardedAd.Load(rewardedId, createAdRequest(),
+        RewardedAd.Load(rewardedId, new AdRequest(),
             (RewardedAd ad, LoadAdError error) =>
             {
                 // if error is not null, the load request failed.
@@ -985,11 +987,18 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         };
     }
 
-    //public bool isAdmobRewardedReady()
-    //{
-    //    return rewardedAd.CanShowAd();
-    //}
-    public void ShowAdmobRewardedAd(string adname)
+    public bool isAdmobRewardedReady()
+    {
+        if (rewardedAd != null && rewardedAd.CanShowAd())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void ShowAdmobRewardedAdWithName(string adname)
     {
         if (isAdsPurchased)
             return;
@@ -1015,12 +1024,38 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
             InitializeAdmobAds();
         }
     }
+    public void ShowAdmobRewardedAd()
+    {
+        if (isAdsPurchased)
+            return;
+        if (IsLowMemory(NoAnyRewardBelow)) return;
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            CheckInternetPanel.SetActive(true);
+        }
+        else if (isAdmobInitialized && rewardedAd.CanShowAd())
+        {
+#if ANRSupervisor
+            ANRSupervisorObservation(ANRSupervisorObservingANRState.Start);
+#endif
+            adShowing = true;
+            
+            rewardedAd.Show((Reward reward) =>
+            {
+                StartCoroutine(GetReward());
+            });
+        }
+        else
+        {
+            InitializeAdmobAds();
+        }
+    }
 
 
     public void RequestRewardedInterstitialAd()
     {
         // send the request to load the ad.
-        RewardedInterstitialAd.Load(rewardedInterstitialId, createAdRequest(),
+        RewardedInterstitialAd.Load(rewardedInterstitialId, new AdRequest(),
             (RewardedInterstitialAd ad, LoadAdError error) =>
             {
                 // if error is not null, the load request failed.
@@ -1087,10 +1122,18 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         };
     }
 
-    //public bool isAdmobRewardedInterstitialReady()
-    //{
-    //    return rewardedInterstitial.CanShowAd();
-    //}
+    public bool isAdmobRewardedInterstitialReady()
+    {
+        if (rewardedInterstitial != null && rewardedInterstitial.CanShowAd())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void ShowRewardedInterstitialAd(string adname)
     {
         if (isAdsPurchased)
@@ -1119,6 +1162,60 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         }
     }
 
+    #endregion
+
+    #region GetReward
+    IEnumerator GetReward()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        if (rewardedAdName == "BusAd")
+        {
+            if (GarageScript.instance != null)
+            {
+                GarageScript.instance.UnlockedBusByVideo(GarageScript.instance.busNum);
+            }
+        }
+        else if (rewardedAdName == "FreeCoins")
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 100);
+            for (int i = 0; i < MainMenu.instance.totalCoinsText.Length; i++)
+            {
+                MainMenu.instance.totalCoinsText[i].text = PlayerPrefs.GetInt("Coins").ToString();
+            }
+        }
+        else if (rewardedAdName == "DoubleReward")
+        {
+            PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 500);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 3000);
+            GameplayScript.instance.totalCashText.text = PlayerPrefs.GetInt("Cash").ToString();
+            GameplayScript.instance.totalCoinsText.text = PlayerPrefs.GetInt("Coins").ToString();
+            GameplayScript.instance.victoryPanel.SetActive(false);
+            GameplayScript.instance.completePanel.SetActive(true);
+        }
+        else if (rewardedAdName == "SkipLevel")
+        {
+            GameplayScript.instance.GotLevelSkipped();
+        }
+
+        else if (rewardedAdName == "GetCoins")
+        {
+            ShopScript.instance.GotCoinsByReward(ShopScript.instance.coinsoffernum);
+            for (int i = 0; i < MainMenu.instance.totalCoinsText.Length; i++)
+            {
+                MainMenu.instance.totalCoinsText[i].text = PlayerPrefs.GetInt("Coins").ToString();
+            }
+        }
+
+        else if (rewardedAdName == "GetCash")
+        {
+            ShopScript.instance.GotCashByReward(ShopScript.instance.cashoffernum);
+            for (int i = 0; i < MainMenu.instance.totalCashText.Length; i++)
+            {
+                MainMenu.instance.totalCashText[i].text = PlayerPrefs.GetInt("Cash").ToString();
+            }
+        }
+        rewardedAdName = "";
+    }
     #endregion
 
     #region UnityAds
@@ -1244,61 +1341,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     }
 
 
-    #endregion
-
-    #region GetReward
-    IEnumerator GetReward()
-    {
-        yield return new WaitForSecondsRealtime(0.1f);
-
-        if (rewardedAdName == "BusAd")
-        {
-            if (GarageScript.instance != null)
-            {
-                GarageScript.instance.UnlockedBusByVideo(GarageScript.instance.busNum);
-            }
-        }
-        else if (rewardedAdName == "FreeCoins")
-        {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 100);
-            for (int i = 0; i < MainMenu.instance.totalCoinsText.Length; i++)
-            {
-                MainMenu.instance.totalCoinsText[i].text = PlayerPrefs.GetInt("Coins").ToString();
-            }
-        }
-        else if (rewardedAdName == "DoubleReward")
-        {
-            PlayerPrefs.SetInt("Cash", PlayerPrefs.GetInt("Cash") + 500);
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 3000);
-            GameplayScript.instance.totalCashText.text = PlayerPrefs.GetInt("Cash").ToString();
-            GameplayScript.instance.totalCoinsText.text = PlayerPrefs.GetInt("Coins").ToString();
-            GameplayScript.instance.victoryPanel.SetActive(false);
-            GameplayScript.instance.completePanel.SetActive(true); 
-        } 
-        else if (rewardedAdName == "SkipLevel")
-        {
-            GameplayScript.instance.GotLevelSkipped(); 
-        }
-
-        else if (rewardedAdName == "GetCoins")
-        {
-            ShopScript.instance.GotCoinsByReward(ShopScript.instance.coinsoffernum);
-            for (int i = 0; i < MainMenu.instance.totalCoinsText.Length; i++)
-            {
-               MainMenu.instance.totalCoinsText[i].text = PlayerPrefs.GetInt("Coins").ToString();
-            }
-        }
-
-        else if (rewardedAdName == "GetCash")
-        {
-            ShopScript.instance.GotCashByReward(ShopScript.instance.cashoffernum);
-            for (int i = 0; i < MainMenu.instance.totalCashText.Length; i++)
-            {
-                MainMenu.instance.totalCashText[i].text = PlayerPrefs.GetInt("Cash").ToString();
-            }
-        }
-        rewardedAdName = "";
-    }
     #endregion
 
     #region OnFocus For AppOpenAds
@@ -1619,23 +1661,37 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     static int ads;
     public void ShowBothInterstitial()
     {
-        if(ads == 0)
+        if (ads == 0)
         {
-            ShowInterstitial();
+            if (isAdmobInterstitialReady())
+                ShowInterstitial();
+            else if (IsUnityInterstitial)
+                ShowUnityVideoAd();
             ads = 1;
         }
-        else if(ads == 1)
+        else if (ads == 1)
         {
-            ShowInterstitial();
+            if (isAdmobInterstitialReady())
+                ShowInterstitial();
+            else if (IsUnityInterstitial)
+                ShowUnityVideoAd();
             ads = 2;
         }
-        else if(ads == 2)
+        else if (ads == 2)
         {
-            ShowUnityVideoAd();
+            if (IsUnityInterstitial)
+                ShowUnityVideoAd();
+            else if (isAdmobInterstitialReady())
+                ShowInterstitial();
             ads = 0;
         }
     }
 
     #endregion
 
+    #region CustomCode
+    // Start Adnan Code
+
+    // End Adnan Code
+    #endregion
 }

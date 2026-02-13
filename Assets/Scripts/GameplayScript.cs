@@ -181,7 +181,7 @@ public class GameplayScript : MonoBehaviour
         {
             AdsManager.instance.ShowBottomRightCubeBanner();
             AdsManager.instance.RemoveTopSmallBanner();
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
         if (ANALYTICS.instance != null)
         {
@@ -212,7 +212,7 @@ public class GameplayScript : MonoBehaviour
         {
             AdsManager.instance.ShowBottomRightCubeBanner();
             AdsManager.instance.RemoveTopSmallBanner();
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
     }
 
@@ -237,7 +237,7 @@ public class GameplayScript : MonoBehaviour
         {
             AdsManager.instance.ShowBottomRightCubeBanner();
             AdsManager.instance.RemoveTopSmallBanner();
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
     }
 
@@ -254,7 +254,7 @@ public class GameplayScript : MonoBehaviour
     {
         if (failPanel.activeInHierarchy)
         {
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
         SceneManager.LoadScene(2);
         if (AdsManager.instance != null)
@@ -277,7 +277,7 @@ public class GameplayScript : MonoBehaviour
         if (AdsManager.instance != null)
         {
             AdsManager.instance.RemoveBottomRightCubeBanner();
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
     }
 
@@ -287,7 +287,7 @@ public class GameplayScript : MonoBehaviour
         if (AdsManager.instance != null)
         {
             AdsManager.instance.RemoveBottomRightCubeBanner();
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
     }
 
@@ -325,7 +325,7 @@ public class GameplayScript : MonoBehaviour
     {
         if (AdsManager.instance != null)
         {
-            AdsManager.instance.ShowAdmobRewardedAd("DoubleReward");
+            AdsManager.instance.ShowAdmobRewardedAdWithName("DoubleReward");
         }
     }
 
@@ -333,7 +333,7 @@ public class GameplayScript : MonoBehaviour
     {
         if (AdsManager.instance != null)
         {
-            AdsManager.instance.ShowAdmobRewardedAd("SkipLevel");
+            AdsManager.instance.ShowAdmobRewardedAdWithName("SkipLevel");
         }
     }
 

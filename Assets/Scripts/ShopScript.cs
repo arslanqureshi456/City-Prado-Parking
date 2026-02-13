@@ -42,7 +42,7 @@ public class ShopScript : MonoBehaviour
         coinsoffernum = num;
         if (AdsManager.instance != null)
         {
-            AdsManager.instance.ShowAdmobRewardedAd("GetCoins");
+            AdsManager.instance.ShowAdmobRewardedAdWithName("GetCoins");
         }
         //GotCoinsByReward(num);
     }
@@ -84,7 +84,7 @@ public class ShopScript : MonoBehaviour
         cashoffernum = num;
         if (AdsManager.instance != null)
         {
-            AdsManager.instance.ShowAdmobRewardedAd("GetCash");
+            AdsManager.instance.ShowAdmobRewardedAdWithName("GetCash");
         }
         //GotCashByReward(num);
     }

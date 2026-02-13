@@ -148,7 +148,7 @@ public class MainMenu : MonoBehaviour
         {
             AdsManager.instance.ShowBottomRightCubeBanner();
             AdsManager.instance.RemoveTopSmallBanner();
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
         if (ANALYTICS.instance != null)
         {
@@ -223,7 +223,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(2);
         if (AdsManager.instance != null)
         {
-            AdsManager.instance.ShowBothInterstitial();
+            AdsManager.instance.ShowInterstitial();
         }
     }
 
@@ -263,7 +263,7 @@ public class MainMenu : MonoBehaviour
     {
         if (AdsManager.instance != null)
         {
-            AdsManager.instance.ShowAdmobRewardedAd("FreeCoins");
+            AdsManager.instance.ShowAdmobRewardedAdWithName("FreeCoins");
         }
     }
 

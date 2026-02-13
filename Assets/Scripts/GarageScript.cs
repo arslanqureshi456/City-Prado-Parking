@@ -158,7 +158,7 @@ public class GarageScript : MonoBehaviour
     {
         if (AdsManager.instance != null)
         {
-            AdsManager.instance.ShowAdmobRewardedAd("BusAd");
+            AdsManager.instance.ShowAdmobRewardedAdWithName("BusAd");
         }
     }
 

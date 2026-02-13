@@ -1,0 +1,42 @@
+# ==========================
+# Firebase SDK (Analytics, Config, Messaging)
+# ==========================
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
+# ==========================
+# Google Play Services / AdMob
+# ==========================
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.android.gms.**
+
+# ==========================
+# AndroidX (needed by Firebase + AdMob)
+# ==========================
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+
+# ==========================
+# Unity and UnityPlayer classes
+# ==========================
+-keep class com.unity3d.player.** { *; }
+-dontwarn com.unity3d.player.**
+
+# ==========================
+# Keep classes with native methods
+# ==========================
+-keepclasseswithmembers class * {
+    native <methods>;
+}
+
+# ==========================
+# Prevent stripping of serialized fields
+# ==========================
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
