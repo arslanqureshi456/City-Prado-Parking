@@ -182,30 +182,28 @@ MonoBehaviour:
   isCheckInternetConnection: 0
   CheckInternetPanel: {fileID: 8894161933841061851}
   appOpenId: 
-  interstitialId: 
-  staticInterstitialId: 
+  interstitialId: ca-app-pub-7896267001591800/5631285024
+  staticInterstitialId: ca-app-pub-7896267001591800/5857853029
   isAppOpenAd: 0
-  isInterstitialAd: 0
-  isStaticInterstitialAd: 0
-  rewardedId: 
+  isInterstitialAd: 1
+  isStaticInterstitialAd: 1
+  rewardedId: ca-app-pub-7896267001591800/4585695032
   rewardedInterstitialId: 
-  isRewardedAd: 0
+  isRewardedAd: 1
   isRewardedInterstitial: 0
-  bannerId: 
-  medBannerId: 
+  bannerId: ca-app-pub-7896267001591800/4444699003
+  medBannerId: ca-app-pub-7896267001591800/5898776704
   largeBannerId: 
   adaptiveBannerId: 
-  isTopBanner: 0
+  isTopBanner: 1
   IsBottomBanner: 0
-  isTopSmartBanner: 0
-  isBottomSmartBanner: 0
   isTopRightBanner: 0
   isTopLeftBanner: 0
   isBottomRightBanner: 0
   isBottomLeftBanner: 0
   isTopRightCubeBanner: 0
   isTopLeftCubeBanner: 0
-  isBottomRightCubeBanner: 0
+  isBottomRightCubeBanner: 1
   isBottomLeftCubeBanner: 0
   isLargeLandscapeTopBanner: 0
   isLargeLandscapeBottomBanner: 0

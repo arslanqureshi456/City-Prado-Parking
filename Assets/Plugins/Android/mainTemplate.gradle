@@ -14,7 +14,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-common:21.0.0' // Assets/Firebase/Editor/AppDependencies.xml:13
     implementation 'com.google.firebase:firebase-config:22.1.0' // Assets/Firebase/Editor/RemoteConfigDependencies.xml:13
     implementation 'com.google.firebase:firebase-config-unity:12.6.0' // Assets/Firebase/Editor/RemoteConfigDependencies.xml:20
-    implementation 'com.unity3d.ads:unity-ads:[4.16.3,4.17[' // Packages/com.unity.ads/Editor/Source/Dependencies.xml:7
+    implementation 'com.unity3d.ads:unity-ads:[4.12.0,4.13[' // Packages/com.unity.ads/Editor/Source/Dependencies.xml:7
 // Android Resolver Dependencies End
 **DEPS**}
 
